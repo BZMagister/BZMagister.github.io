@@ -23,6 +23,28 @@ window.onload = function() {
 	var nCurrentWizDialog = 0;
 	$(".WizDialogBox").hide();
 	$(".WizDialogBox").eq(0).show();
+
+	// the detect of scroll.
+	$(window).scroll(function() {
+		var nCurrentScrollTop = $(window).scrollTop();
+
+		for (var i = 0; i < nTopsH2.length-1; i++) {
+			if ( nTopsH2[i] <= nCurrentScrollTop && nCurrentScrollTop <= nTopsH2[i+1] )
+				break;
+		};
+
+		if ( i != nCurrentWizDialog ) {
+			clearInterval(tWizDialog);
+
+			nCurrentWizDialog = i;
+			$(".WizDialogBox:visible > .WizDialogOnce").hide();
+			$(".WizDialogBox").hide();
+			$(".WizDialogBox").eq(i).show();
+			$(".WizDialogBox:visible > .WizDialogOnce").eq(0).show();
+
+			tWizDialog = setInterval(autoNextWizDialog, msSwitch);
+		}
+	});
 }
 
 // the changer of all Wiz Dialogues.
@@ -49,28 +71,6 @@ function showNextWizDialog() {
 	i = (i+1) % nMaxDialogAmt;
 	WizDialogLines.eq(i).show();
 }
-
-// the detect of scroll.
-$(window).scroll(function() {
-	var nCurrentScrollTop = $(window).scrollTop();
-
-	for (var i = 0; i < nTopsH2.length-1; i++) {
-		if ( nTopsH2[i] <= nCurrentScrollTop && nCurrentScrollTop <= nTopsH2[i+1] )
-			break;
-	};
-
-	if ( i != nCurrentWizDialog ) {
-		clearInterval(tWizDialog);
-
-		nCurrentWizDialog = i;
-		$(".WizDialogBox:visible > .WizDialogOnce").hide();
-		$(".WizDialogBox").hide();
-		$(".WizDialogBox").eq(i).show();
-		$(".WizDialogBox:visible > .WizDialogOnce").eq(0).show();
-
-		tWizDialog = setInterval(autoNextWizDialog, msSwitch);
-	}
-});
 
 function disableSelection(targetClass) {
 	var arrTarget = document.getElementsByClassName(targetClass);
