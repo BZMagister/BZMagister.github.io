@@ -3,7 +3,10 @@ var nCurrentWizDialog;
 var tWizDialog;
 var msSwitch = 5000;
 
-$(document).ready(function() {
+var old_onload = window.onload || function() {};
+window.onload = function() {
+	old_onload();
+	
 	// $(".WizDialogBox").disableSelection();
 	disableSelection("WizDialogBox");
 	$(".WizDialog").click( clickNextWizDialog );
