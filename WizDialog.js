@@ -23,7 +23,7 @@ window.onload = function() {
 	var nCurrentWizDialog = 0;
 	$(".WizDialogBox").hide();
 	$(".WizDialogBox").eq(0).show();
-});
+}
 
 // the changer of all Wiz Dialogues.
 function autoNextWizDialog() {
